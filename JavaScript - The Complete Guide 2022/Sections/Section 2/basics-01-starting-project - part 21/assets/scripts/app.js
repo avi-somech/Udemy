@@ -10,4 +10,6 @@ currentResult = add(1,3);
 
 addBtn.addEventListener('click', add);
 
+calculationDescription = "Calculation description";
+
 outputResult(currentResult, calculationDescription);
