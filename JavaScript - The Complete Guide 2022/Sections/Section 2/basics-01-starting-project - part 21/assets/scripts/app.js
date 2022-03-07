@@ -1,15 +1,16 @@
 const defaultResult = 0;
 let currentResult = defaultResult;
 
-function add(num1, num2) {
-    const result = num1 + num2;
-    return result;
+//he said that in general a function should not mix stuff from outside. 
+//in this case, its fine because its global but its only global. 
+//it is not a mix of global and local stuff
+//he said we will get a feel for when it is fine and when not
+function add() {
+    currentResult = currentResult + userInput.value;
+    outputResult(currentResult, '');
 }
 
-currentResult = add(1,3);
 
 addBtn.addEventListener('click', add);
 
-calculationDescription = "Calculation description";
 
-outputResult(currentResult, calculationDescription);
