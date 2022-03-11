@@ -9,10 +9,12 @@ function alertParam(param){
     alert(param);
 }
 
+
+
 alertText();
 alertParam("Hiiii");
 
-task3Element.addEventListener('click', alertText)
+task3Element.addEventListener('click', alertText);
 
 //this is how I wrote the function but note it will add numbers and concatnenate strings...
 //but if you pass in numbers as strings it will work
