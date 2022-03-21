@@ -35,40 +35,48 @@ function writeToLog(event, value, monsterHealth, playerHealth) {
     finalMonsterHealth: monsterHealth,
     finalPlayerHealth: playerHealth,
   };
-  if (event === LOG_EVENT_PLAYER_ATTACK) {
-    logEntry.target = "MONSTER";
-    //add a new property dynamically which you can do in JS with the dot notation if you access a property that does not exist yet
-  } else if (event === LOG_EVENT_PLAYER__STRONG_ATTACK) {
-    logEntry = {
-      event: event,
-      value: value,
-      target: "MONSTER",
-      finalMonsterHealth: monsterHealth,
-      finalPlayerHealth: playerHealth,
-    };
-  } else if (event === LOG_EVENT_MONSTER_ATTACK) {
-    logEntry = {
-      event: event,
-      value: value,
-      target: "PLAYER",
-      finalMonsterHealth: monsterHealth,
-      finalPlayerHealth: playerHealth,
-    };
-  } else if (event === LOG_EVENT_PLAYER_HEAL) {
-    logEntry = {
-      event: event,
-      value: value,
-      target: "PLAYER",
-      finalMonsterHealth: monsterHealth,
-      finalPlayerHealth: playerHealth,
-    };
-  } else if (LOG_EVENT_PLAYER_HEAL) {
-    logEntry = {
-      event: event,
-      value: value,
-      finalMonsterHealth: monsterHealth,
-      finalPlayerHealth: playerHealth,
-    };
+  switch (event) {
+    case LOG_EVENT_PLAYER_ATTACK:
+      logEntry.target = "MONSTER";
+      //add a new property dynamically which you can do in JS with the dot notation if you access a property that does not exist yet
+      break;
+    case LOG_EVENT_PLAYER__STRONG_ATTACK:
+      ogEntry = {
+        event: event,
+        value: value,
+        target: "MONSTER",
+        finalMonsterHealth: monsterHealth,
+        finalPlayerHealth: playerHealth,
+      };
+      break;
+    case LOG_EVENT_MONSTER_ATTACK:
+      logEntry = {
+        event: event,
+        value: value,
+        target: "PLAYER",
+        finalMonsterHealth: monsterHealth,
+        finalPlayerHealth: playerHealth,
+      };
+      break;
+    case LOG_EVENT_PLAYER_HEAL:
+      logEntry = {
+        event: event,
+        value: value,
+        target: "PLAYER",
+        finalMonsterHealth: monsterHealth,
+        finalPlayerHealth: playerHealth,
+      };
+      break;
+    case LOG_EVENT_GAME_OVER:
+      logEntry = {
+        event: event,
+        value: value,
+        finalMonsterHealth: monsterHealth,
+        finalPlayerHealth: playerHealth,
+      };
+      break;
+    default:
+      logEntry = {};
   }
   battleLog.push(logEntry);
 }
@@ -132,12 +140,11 @@ function endRound() {
 }
 
 function attackMonster(attackMode) {
-  const maxDamage =
-    attackMode === MODE_ATTTACK ? ATTACK_VALUE : STRONG_ATTACK_VALUE;
+  const  maxDamage = attackMode === MODE_ATTTACK ? ATTACK_VALUE : STRONG_ATTACK_VALUE;
   const logEvent =
-    attackMode === MODE_ATTTACK
-      ? LOG_EVENT_PLAYER_ATTACK
-      : LOG_EVENT_PLAYER__STRONG_ATTACK;
+   attackMode === MODE_ATTTACK
+    ? LOG_EVENT_PLAYER_ATTACK
+    : LOG_EVENT_PLAYER__STRONG_ATTACK;
   // if (attackMode === MODE_ATTTACK) {
   //   maxDamage = ATTACK_VALUE;
   //   logEvent = LOG_EVENT_PLAYER_ATTACK;
@@ -184,6 +191,34 @@ function healPlayerHandler() {
 }
 
 function printLogHandler() {
+  for (let i = 0; i < 3; i++) {
+    console.log("-----------------");
+  }
+
+  // let j = 0;
+  // while (j<3) {
+  //   console.log("-----------------");
+  //   j++;
+  // }
+
+  // for (let i = 0; i<battleLog.length; i++){
+  //   console.log(battleLog[i]);
+  // }
+  let i = 0;
+  for (const logEntry of battleLog){
+    console.log(`#${i}`);
+    for (const key in logEntry){
+      //console.log(key);
+      //console.log(logEntry[key]); //this will access the property of logEntry.key
+      //if you just do logEntry.key, it will think there is a property called "key"
+      //you can also hardcode a string containting the property name, ex: logEntry.'property'
+
+      console.log(`${key} ==> ${logEntry[key]}`);
+    }
+    i++;
+  }
+  //a new const is created for each loop iteration
+
   console.log(battleLog);
 }
 
